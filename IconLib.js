@@ -82,6 +82,7 @@ class IconLib extends Component{
               style = {styles.iconBox}
               onPress = {()=> this.alertItemName(item)}>
               <Image source={item.file} style = {styles.icon}/>
+              <Text>{item.name}</Text>
             </TouchableOpacity>
           ))
         }

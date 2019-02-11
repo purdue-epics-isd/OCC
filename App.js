@@ -7,6 +7,7 @@
  */
  import React from 'react';
  import IconLib from './IconLib.js';
+ import StudentDir from './StudentDir.js';
  import { Button, View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
  import { StackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
@@ -104,6 +105,7 @@
    render() {
      return (
        <View style={styles.container}>
+         <StudentDir />
        </View>
      );
    }
