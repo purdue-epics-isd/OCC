@@ -6,19 +6,9 @@
  * @flow
  */
  import React from 'react';
+ import IconLib from './IconLib.js';
  import { Button, View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
  import { StackNavigator } from 'react-navigation'; // Version can be specified in package.json
-
- const Icon = [
-  {
-    name: 'Art Class',
-    url: './UI_elements/IconLibrary/ArtClass.png'
-  },
-  {
-    name: 'ASL',
-    url: './UI_elements/IconLibrary/ASL.png'
-  },
- ];
 
  class HomeScreen extends React.Component {
    static navigationOptions = {
@@ -110,10 +100,10 @@
       fontWeight: 'bold',
     },
   };
+  
    render() {
      return (
        <View style={styles.container}>
-
        </View>
      );
    }
@@ -133,8 +123,7 @@
    render() {
      return (
        <View style={styles.container}>
-        <ScrollView>
-        </ScrollView>
+          <IconLib />
        </View>
      );
    }
