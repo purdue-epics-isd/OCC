@@ -42,7 +42,7 @@ class StudentDir extends Component{
               style = {styles.iconBox}
               onPress = {()=> this.alertItemName(item)}>
               <Image source={require('./UI_elements/Log/ProfileImage.png')} style = {styles.icon}/>
-              <Text>{item.name}</Text>
+              <Text>  {item.name}  </Text>
             </TouchableOpacity>
           ))
         }
@@ -55,16 +55,22 @@ class StudentDir extends Component{
 export default StudentDir;
 const styles = StyleSheet.create ({
   icon:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: 75,
-    height: 75,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: 70,
+    height: 70,
     resizeMode: 'contain',
   },
   iconBox:{
-    flex: 1,
-    justifyContent: 'center',
+    flex: 1, 
+    flexDirection: 'row', 
+    backgroundColor: '#FF8D2C',
     alignItems: 'center',
+    justifyContent: 'flex-start',  
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderBottomColor: '#A17C5F',
+    borderTopColor: '#A17C5F',
   }
 })
