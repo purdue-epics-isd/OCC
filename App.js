@@ -9,7 +9,7 @@
  import IconLib from './IconLib.js';
  import StudentDir from './StudentDir.js';
  import CreateDetail from './CreateDetail.js';
- import { Button, View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+ import { Button, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
  import { StackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
  class HomeScreen extends React.Component {
@@ -48,7 +48,7 @@
      );
    }
  }
-
+{/*
  class DetailsScreen extends React.Component {
    render() {
      return (
@@ -70,6 +70,7 @@
      );
    }
  }
+*/}
 
  class CreateDetailsScreen extends React.Component {
    static navigationOptions = {
@@ -136,10 +137,10 @@
    {
      Home: {
        screen: HomeScreen,
-     },
+     },/*
      Details: {
        screen: DetailsScreen,
-     },
+     },*/
      CreateDetails: {
        screen: CreateDetailsScreen,
      },
