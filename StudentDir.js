@@ -33,7 +33,7 @@ class StudentDir extends Component{
   }
   render(){
     return(
-      <View>
+      <View style = {styles.PageView}>
         <ScrollView>
         {
           this.Students.elements.map((item, index) => (
@@ -42,9 +42,11 @@ class StudentDir extends Component{
               style = {styles.iconBox}
               onPress = {()=> this.alertItemName(item)}>
               <Image source={require('./UI_elements/Log/ProfileImage.png')} style = {styles.icon}/>
-              <Text>  {item.name}  </Text>
+              <Text>{item.name}</Text>
+              <Image source={require('./UI_elements/Nav/Ellipsis.png')} style = {styles.MenuIcon}/>
             </TouchableOpacity>
           ))
+          
         }
         </ScrollView>
       </View>
@@ -55,6 +57,7 @@ class StudentDir extends Component{
 export default StudentDir;
 const styles = StyleSheet.create ({
   icon:{
+    
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
@@ -63,14 +66,31 @@ const styles = StyleSheet.create ({
     resizeMode: 'contain',
   },
   iconBox:{
-    flex: 1, 
+    flex: 1,
     flexDirection: 'row', 
-    backgroundColor: '#FF8D2C',
+    backgroundColor: '#d4d4d6',
     alignItems: 'center',
-    justifyContent: 'flex-start',  
+    justifyContent: 'space-between',  
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    borderBottomColor: '#A17C5F',
-    borderTopColor: '#A17C5F',
+    borderBottomColor: '#f7f8f9',
+    borderTopColor: '#f7f8f9',
+  },
+  MenuIcon: {
+    
+    flexDirection: 'column',
+    resizeMode: 'contain',
+    height: '25%',
+    width: '25%',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end'
+
+  },
+  PageView:{
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+    backgroundColor: '#f7f8f9',
+    
   }
 })
