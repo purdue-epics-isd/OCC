@@ -34,7 +34,7 @@ class StudentDir extends Component{
   render(){
     return(
       <View>
-        <ScrollView>
+        <ScrollView style={styles.PageView}>
         {
           this.Students.elements.map((item, index) => (
             <TouchableOpacity
@@ -67,10 +67,13 @@ const styles = StyleSheet.create ({
     flexDirection: 'row', 
     backgroundColor: '#FF8D2C',
     alignItems: 'center',
-    justifyContent: 'flex-start',  
+    justifyContent: 'flex-start',
     borderBottomWidth: 1,
     borderTopWidth: 1,
     borderBottomColor: '#A17C5F',
     borderTopColor: '#A17C5F',
+  },
+  PageView:{
+      backgroundColor: '#FFFFFF'
   }
 })
