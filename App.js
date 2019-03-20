@@ -9,6 +9,8 @@
  import IconLib from './IconLib.js';
  import StudentDir from './StudentDir.js';
  import CreateDetail from './CreateDetail.js';
+ import EditIcon from './EditIcon.js';
+ import EditProfile from './EditProfile.js';
  import { Button, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
  import { StackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
@@ -42,6 +44,11 @@
             <Image source={require('./UI_elements/Homepage/IconLibrary.png')} style={styles.Home_image}/>
             <Text style={styles.font}>ICON</Text>
             <Text style={styles.font}>LIBRARY</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.Home_Yellow} onPress={() => this.props.navigation.push('EditIcon')}>
+            <Image source={require('./UI_elements/Nav/Edit.png')} style={styles.Home_image}/>
+            <Text style={styles.font}>EDIT</Text>
+            <Text style={styles.font}>Profile</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -133,6 +140,26 @@
    }
  }
 
+ class EditIconScreen extends React.Component {
+  static navigationOptions = {
+   title: 'EDIT Profile',
+   headerStyle: {
+     backgroundColor: '#FF8D2C',
+   },
+   headerTintColor: '#fff',
+   headerTitleStyle: {
+     fontWeight: 'bold',
+   },
+ };
+  render() {
+    return (
+      <View style={styles.container}>
+         <EditProfile />
+      </View>
+    );
+  }
+}
+
  const RootStack = StackNavigator(
    {
      Home: {
@@ -150,6 +177,9 @@
      IconLibrary: {
        screen: IconLibraryScreen,
      },
+     EditIcon:{
+       screen: EditIconScreen,
+     }
    },
    {
      initialRouteName: 'Home',

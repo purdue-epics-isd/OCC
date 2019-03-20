@@ -8,7 +8,7 @@ class ClassTab extends React.Component {
 
     render() {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View>
           <IconLib />
         </View>
       );
@@ -47,7 +47,7 @@ class ClassTab extends React.Component {
       }
     render() {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style = {{flex: 1, }}>
           <StudentDir />
         </View>
       );
@@ -65,6 +65,7 @@ export default class App extends React.Component {
       return <CreateDetail />;
     }
   }
+
 
 const styles = StyleSheet.create ({
   icon:{
