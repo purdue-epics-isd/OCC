@@ -28,24 +28,24 @@
          <Image source={require('./UI_elements/Homepage/logo2.png')} style={styles.Home_logo}/>
         </View>
 
-          <TouchableOpacity style={styles.Home_red} onPress={() => this.props.navigation.push('CreateDetails')}>
+          <TouchableOpacity style={styles.Home_red} onPress={() => this.props.navigation.push('createdetailscreen')}>
             <Image source={require('./UI_elements/Homepage/CreateADetail.png')} style={styles.Home_image}/>
             <Text style={styles.font}>CREATE DETAIL</Text>
           </TouchableOpacity>
 
         <View style={styles.Home_yellowGray}>
 
-          <TouchableOpacity style={styles.Home_Yellow} onPress={() => this.props.navigation.push('StudentDirectory')}>
+          <TouchableOpacity style={styles.Home_Yellow} onPress={() => this.props.navigation.push('studentdirectoryscreen')}>
             <Image source={require('./UI_elements/Homepage/StudentDirectory.png')} style={styles.Home_image}/>
             <Text style={styles.font}>STUDENT</Text>
             <Text style={styles.font}>DIRECTORY</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.Home_Gray} onPress={() => this.props.navigation.push('IconLibrary')}>
+          <TouchableOpacity style={styles.Home_Gray} onPress={() => this.props.navigation.push('iconlibraryscreen')}>
             <Image source={require('./UI_elements/Homepage/IconLibrary.png')} style={styles.Home_image}/>
             <Text style={styles.font}>ICON</Text>
             <Text style={styles.font}>LIBRARY</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.Home_Yellow} onPress={() => this.props.navigation.push('EditIcon')}>
+          <TouchableOpacity style={styles.Home_Yellow} onPress={() => this.props.navigation.push('editprofilescreen')}>
             <Image source={require('./UI_elements/Nav/Edit.png')} style={styles.Home_image}/>
             <Text style={styles.font}>EDIT</Text>
             <Text style={styles.font}>Profile</Text>
@@ -55,131 +55,76 @@
      );
    }
  }
-{/*
- class DetailsScreen extends React.Component {
-   render() {
-     return (
-       <View style={styles.container}>
-         <Text>Details Screen</Text>
-         <Button
-           title="Go to Details... again"
-           onPress={() => this.props.navigation.push('Details')}
-         />
-         <Button
-           title="Go to Home"
-           onPress={() => this.props.navigation.navigate('Home')}
-         />
-         <Button
-           title="Go back"
-           onPress={() => this.props.navigation.goBack()}
-         />
-       </View>
-     );
-   }
- }
-*/}
-
- class CreateDetailsScreen extends React.Component {
-   static navigationOptions = {
-    title: 'CREATE A DETAIL',
-    headerStyle: {
-      backgroundColor: '#FF8D2C',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
-   render() {
-     return (
-       <View style={styles.container}>
-        <CreateDetail />
-       </View>
-     );
-   }
- }
-
- class StudentDirectoryScreen extends React.Component {
-   static navigationOptions = {
-    title: 'STUDENT DIRECTORY',
-    headerStyle: {
-      backgroundColor: '#FF8D2C',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
-  
-   render() {
-     return (
-       <View style={styles.container}>
-         <StudentDir />
-       </View>
-     );
-   }
- }
-
- class IconLibraryScreen extends React.Component {
-   static navigationOptions = {
-    title: 'ICON LIBRARY',
-    headerStyle: {
-      backgroundColor: '#FF8D2C',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
-   render() {
-     return (
-       <View style={styles.container}>
-          <IconLib />
-       </View>
-     );
-   }
- }
-
- class EditIconScreen extends React.Component {
-  static navigationOptions = {
-   title: 'EDIT Profile',
-   headerStyle: {
-     backgroundColor: '#FF8D2C',
-   },
-   headerTintColor: '#fff',
-   headerTitleStyle: {
-     fontWeight: 'bold',
-   },
- };
-  render() {
-    return (
-      <View style={styles.container}>
-         <EditProfile />
-      </View>
-    );
-  }
-}
-
  const RootStack = StackNavigator(
    {
      Home: {
        screen: HomeScreen,
-     },/*
-     Details: {
-       screen: DetailsScreen,
-     },*/
-     CreateDetails: {
-       screen: CreateDetailsScreen,
      },
-     StudentDirectory: {
-       screen: StudentDirectoryScreen,
+     createdetailscreen: {
+       screen: CreateDetail,
+       navigationOptions: {
+        title: 'CREATE A DETAIL',
+        headerStyle: {
+          backgroundColor: '#FF8D2C',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }
      },
-     IconLibrary: {
-       screen: IconLibraryScreen,
+     studentdirectoryscreen: {
+       screen: StudentDir,
+       navigationOptions: {
+        title: 'STUDENT DIRECTORY',
+        headerStyle: {
+          backgroundColor: '#FF8D2C',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      },
      },
-     EditIcon:{
-       screen: EditIconScreen,
-     }
+     iconlibraryscreen: {
+       screen: IconLib,
+       navigationOptions: {
+        title: 'ICON LIBRARY',
+        headerStyle: {
+          backgroundColor: '#FF8D2C',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      },
+     },
+     editiconscreen:{
+       screen: EditIcon,
+       navigationOptions: {
+        title: 'EDIT ICON',
+        headerStyle: {
+          backgroundColor: '#FF8D2C',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+     },
+     },
+     editprofilescreen:{
+      screen: EditProfile,
+      navigationOptions: {
+        title: 'EDIT PROFILE',
+        headerStyle: {
+          backgroundColor: '#FF8D2C',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }
+    }
    },
    {
      initialRouteName: 'Home',
@@ -191,34 +136,6 @@
      return <RootStack />;
    }
  }
-
-/*
-export default class App extends Component<Props> {
-
-  _onPressButton() {
-      Alert.alert('You tapped the button!')
-    }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.welcome}>HIIIIIIIIIII</Text>
-        <Button
-        onPress={this._onPressButton}
-        title="Button Sample"
-        backgroundColor="#000000"
-        />
-        <Button
-                onPress={()=>{Alert.alert('You tapped the button!');}}
-                  title="Button Sample 2"
-                  color="#841584"
-                />
-      </View>
-    );
-  }
-}
-*/
 
 const styles = StyleSheet.create({
   container: {

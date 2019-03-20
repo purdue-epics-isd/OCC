@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
+import React, { Component } from 'react';
+import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import EditProfile from './EditProfile.js';
 
 class StudentDir extends Component{
 
@@ -40,7 +42,7 @@ class StudentDir extends Component{
             <TouchableOpacity
               key = {item.id}
               style = {styles.iconBox}
-              onPress = {()=> this.alertItemName(item)}>
+              onPress = {() => this.props.navigation.push('editprofile')}>
               <Image source={require('./UI_elements/Log/ProfileImage.png')} style = {styles.icon}/>
               <Text>{item.name}</Text>
               <Image source={require('./UI_elements/Nav/Ellipsis.png')} style = {styles.MenuIcon}/>
@@ -53,6 +55,15 @@ class StudentDir extends Component{
     )
   }
 }
+
+const Router = StackNavigator({
+  directoryHome:{
+    screen: StudentDir
+  },
+  editprofile:{
+    screen: EditProfile
+  }
+});
 
 export default StudentDir;
 const styles = StyleSheet.create ({
