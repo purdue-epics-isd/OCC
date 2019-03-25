@@ -4,10 +4,12 @@ import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'rea
 class EditIcon extends Component{
 
   render(){
+    const {navigation} = this.props;
+    const icon = navigation.getParam('icon', {id: 0, name: 'Error', file: require('./UI_elements/IconLibrary/ArtClass.png')});
     return(
       <View>
         <Text>Edit icon page</Text>
-
+        <Image source={icon.file} style = {styles.icon}/>
       </View>
     )
   }

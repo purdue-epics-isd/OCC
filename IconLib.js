@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
 import { StackNavigator } from 'react-navigation'; // Version can be specified in package.json
 import { FlatGrid } from 'react-native-super-grid';
+import EditIcon from './EditIcon.js';
 
 const iconData = Array(20)
 .concat({
@@ -67,9 +68,6 @@ const iconData = Array(20)
 
 class IconLib extends Component{
 
-  onItemClick = (item) =>{
-    alert(item.name);
-  }
   render(){
     return(
       <View>
@@ -81,7 +79,9 @@ class IconLib extends Component{
         // fixed
         // spacing={20}
         renderItem={({ item, index }) => (
-          <TouchableOpacity style={styles.iconBox} onPress = {()=> this.onItemClick(item)}>
+          <TouchableOpacity style={styles.iconBox} onPress = {()=> this.props.navigation.push('editicon',{
+            icon: item,
+          })}>
             <Image source={item.file} style = {styles.icon}/>
             <Text>{item.name}</Text>
           </TouchableOpacity>
@@ -93,7 +93,18 @@ class IconLib extends Component{
   }
 }
 
-export default IconLib;
+const IconStack = StackNavigator({
+  libraryHome:{
+    screen: IconLib,
+  },
+  editicon:{
+    screen: EditIcon,
+  }
+},{
+  headerMode: 'none'
+});
+
+export default IconStack;
 const styles = StyleSheet.create ({
   icon:{
     flexDirection: 'column',

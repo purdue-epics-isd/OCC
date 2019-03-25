@@ -3,46 +3,42 @@ import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'rea
 import { StackNavigator } from 'react-navigation';
 import EditProfile from './EditProfile.js';
 
+const students = Array(5)
+.concat({
+  id: 0,
+  name: 'Jeonghu Park',
+  email: 'park955@purdue.edu'
+})
+.concat({
+  id: 1,
+  name: 'Jacqueline Leal',
+  email: 'leal6@purdue.edu',
+})
+.concat({
+  id: 2,
+  name: 'Broderick Schipp',
+  email: 'schipp@purdue.edu',
+})
+.concat({
+  id: 3,
+  name: 'Madi Rogers',
+  email: 'roger188@purdue.edu',
+})
+
 class StudentDir extends Component{
 
-  Students = {
-  elements:[
-    {
-      id: 0,
-      name: 'Jeonghu Park',
-      email: 'park955@purdue.edu',
-    },
-    {
-      id: 1,
-      name: 'Jacqueline Leal',
-      email: 'leal6@purdue.edu',
-    },
-    {
-      id: 2,
-      name: 'Broderick Schipp',
-      email: 'schipp0@purdue.edu',
-    },
-    {
-      id: 3,
-      name: 'Madi Rogers',
-      email: 'roger188@purdue.edu',
-    }
-  ]
-  };
-
-  alertItemName = (item) =>{
-    alert(item.email);
-  }
   render(){
     return(
       <View style = {styles.PageView}>
         <ScrollView>
         {
-          this.Students.elements.map((item, index) => (
+          students.map((item, index) => (
             <TouchableOpacity
               key = {item.id}
               style = {styles.iconBox}
-              onPress = {() => this.props.navigation.push('editprofile')}>
+              onPress = {() => this.props.navigation.push('editprofile',{
+                student: item,
+              })}>
               <Image source={require('./UI_elements/Log/ProfileImage.png')} style = {styles.icon}/>
               <Text>{item.name}</Text>
               <Image source={require('./UI_elements/Nav/Ellipsis.png')} style = {styles.MenuIcon}/>
@@ -56,16 +52,18 @@ class StudentDir extends Component{
   }
 }
 
-const Router = StackNavigator({
+const StudentStack = StackNavigator({
   directoryHome:{
-    screen: StudentDir
+    screen: StudentDir,
   },
   editprofile:{
     screen: EditProfile
   }
+},{
+  headerMode: 'none'
 });
 
-export default StudentDir;
+export default StudentStack;
 const styles = StyleSheet.create ({
   icon:{
     

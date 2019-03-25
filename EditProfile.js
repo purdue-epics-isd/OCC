@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
+import { StackNavigator } from 'react-navigation'
 
 class EditProfile extends Component{
 
   render(){
+
+    const {navigation} = this.props;
+    const student = navigation.getParam('student', {id: 0, name: 'Error', email: 'error'});
+    
     return(
       <View style = {styles.PageView}>
         <ScrollView>
           <Image source={require('./UI_elements/Log/ProfileImage.png')} style = {styles.icon}/>
-          <Text>Student Name</Text>
-          <Text>studentname@gmail.com</Text>
+          <Text style = {styles.text}>{student.name}</Text>
+          <View style = {styles.box}>
+          <Text style = {styles.text}>{student.email}</Text>
           <Image source={require('./UI_elements/Log/Email.png')} style = {styles.email}/>
+          </View>
+          
         </ScrollView>
       </View>
     )
@@ -20,7 +28,7 @@ class EditProfile extends Component{
 export default EditProfile;
 const styles = StyleSheet.create ({
   icon:{
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     width: 200,
@@ -30,19 +38,30 @@ const styles = StyleSheet.create ({
     borderRadius: 5,
   },
   email:{
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     width: 25,
     height: 25,
     resizeMode: 'contain',
     backgroundColor: '#f7f8f9',
-    borderRadius: 5,
+    marginLeft: 10,
+  },
+  text:{
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    fontSize: 24,
+  },
+  box:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   PageView:{
     flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'space-around',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#f7f8f9',
     flexDirection: 'column',
   },

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import IconLib from './IconLib.js';
-import StudentDir from './StudentDir.js';
+import StudentStack from './StudentDir.js';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import IconStack from './IconLib.js';
 
 class ClassTab extends React.Component {
 
@@ -55,9 +55,9 @@ class ClassTab extends React.Component {
   }
 
 const CreateDetail = createBottomTabNavigator({
-    Class: ClassTab,
-    Individual: IndividualTab,
-  });
+    Class: IconStack,
+    Individual: StudentStack,
+});
 
 
 export default class App extends React.Component {
