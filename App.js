@@ -9,18 +9,10 @@
  import IconLib from './IconLib.js';
  import StudentDir from './StudentDir.js';
  import CreateDetail from './CreateDetail.js';
- import EditIcon from './EditIcon.js';
- import EditProfile from './EditProfile.js';
  import { Button, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
  import { StackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
  class HomeScreen extends React.Component {
-   static navigationOptions = {
-       headerStyle: {
-         backgroundColor: '#FF8D2C',
-       },
-     };
-
    render() {
      return (
        <View style={styles.container}>
@@ -45,20 +37,22 @@
             <Text style={styles.font}>ICON</Text>
             <Text style={styles.font}>LIBRARY</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.Home_Yellow} onPress={() => this.props.navigation.push('editprofilescreen')}>
-            <Image source={require('./UI_elements/Nav/Edit.png')} style={styles.Home_image}/>
-            <Text style={styles.font}>EDIT</Text>
-            <Text style={styles.font}>Profile</Text>
-          </TouchableOpacity>
         </View>
       </View>
      );
    }
  }
+ 
  const RootStack = StackNavigator(
    {
      Home: {
        screen: HomeScreen,
+       navigationOptions: {
+        headerStyle: {
+          backgroundColor: '#FF8D2C',
+        },
+        headerTintColor: '#fff',
+      },
      },
      createdetailscreen: {
        screen: CreateDetail,
@@ -99,37 +93,12 @@
         },
       },
      },
-     editiconscreen:{
-       screen: EditIcon,
-       navigationOptions: {
-        title: 'EDIT ICON',
-        headerStyle: {
-          backgroundColor: '#FF8D2C',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-     },
-     },
-     editprofilescreen:{
-      screen: EditProfile,
-      navigationOptions: {
-        title: 'EDIT PROFILE',
-        headerStyle: {
-          backgroundColor: '#FF8D2C',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-      }
-    }
    },
    {
      initialRouteName: 'Home',
    }
  );
+
 
  export default class App extends React.Component {
    render() {

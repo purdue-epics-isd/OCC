@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
+import { StackNavigator } from 'react-navigation'
 
 class EditProfile extends Component{
 
   render(){
+
+    const {navigation} = this.props;
+    const student = navigation.getParam('student', {id: 0, name: 'Error', email: 'error'});
+    
     return(
       <View>
         <Text>Edit profile page</Text>
-
+        <Text>{student.name}</Text>
       </View>
     )
   }
