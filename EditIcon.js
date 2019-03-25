@@ -7,9 +7,14 @@ class EditIcon extends Component{
     const {navigation} = this.props;
     const icon = navigation.getParam('icon', {id: 0, name: 'Error', file: require('./UI_elements/IconLibrary/ArtClass.png')});
     return(
-      <View>
-        <Text>Edit icon page</Text>
+      <View style = {styles.iconBox}>
         <Image source={icon.file} style = {styles.icon}/>
+        <View style = {styles.nameline}>
+          
+          <Text style ={styles.name}>{icon.name}</Text>
+          <Image source={require('./UI_elements/Nav/Edit.png')} style = {styles.small} />
+
+        </View>
       </View>
     )
   }
@@ -21,21 +26,32 @@ const styles = StyleSheet.create ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: 75,
-    height: 75,
+    width: 150,
+    height: 150,
     resizeMode: 'contain',
     backgroundColor: '#FF8D2C',
     borderRadius: 5,
+  },
+  small:{
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: 25,
+    height: 25,
+    backgroundColor: '#847F7F',
   },
   iconBox:{
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  itemContainer: {
-    justifyContent: 'flex-end',
-    borderRadius: 5,
-    padding: 10,
-    height: 150,
+  name: {
+    fontSize: 30,
+    marginRight: 15,
   },
+  nameline:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
 })
