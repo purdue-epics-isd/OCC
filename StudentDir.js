@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'rea
 import { StackNavigator } from 'react-navigation';
 import EditProfile from './EditProfile.js';
 
-const students = Array(5)
+export const StudentData = Array(0)
 .concat({
   id: 0,
   name: 'Jeonghu Park',
@@ -32,7 +32,7 @@ class StudentDir extends Component{
       <View style = {styles.PageView}>
         <ScrollView>
         {
-          students.map((item, index) => (
+          StudentData.map((item, index) => (
             <TouchableOpacity
               key = {item.id}
               style = {styles.iconBox}

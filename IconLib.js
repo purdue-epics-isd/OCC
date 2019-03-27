@@ -4,66 +4,78 @@ import { StackNavigator } from 'react-navigation'; // Version can be specified i
 import { FlatGrid } from 'react-native-super-grid';
 import EditIcon from './EditIcon.js';
 
-const iconData = Array(20)
+export const IconData = Array(0)
 .concat({
   id: 0,
   name: 'ArtClass',
   file: require('./UI_elements/IconLibrary/ArtClass.png'),
+  state: false,
 })
 .concat({
   id: 1,
   name: 'ASL',
   file: require('./UI_elements/IconLibrary/ASL.png'),
+  state: false,
 })
 .concat({
   id: 2,
   name: 'BrushHair',
   file: require('./UI_elements/IconLibrary/BrushHair.png'),
+  state: false,
 })
 .concat({
   id: 3,
   name: 'BrushTeeth',
   file: require('./UI_elements/IconLibrary/BrushTeeth.png'),
+  state: false,
 })
 .concat({
   id: 4,
   name: 'FieldTrip',
   file: require('./UI_elements/IconLibrary/FieldTrip.png'),
+  state: false,
 })
 .concat({
   id: 5,
   name: 'MathCenter',
   file: require('./UI_elements/IconLibrary/MathCenter.png'),
+  state: false,
 })
 .concat({
   id: 6,
   name: 'Project',
   file: require('./UI_elements/IconLibrary/Project.png'),
+  state: false,
 })
 .concat({
   id: 7,
   name: 'Reading',
   file: require('./UI_elements/IconLibrary/Reading.png'),
+  state: false,
 })
 .concat({
   id: 8,
   name: 'SocialSkills',
   file: require('./UI_elements/IconLibrary/SocialSkills.png'),
+  state: false,
 })
 .concat({
   id: 9,
   name: 'StoryTime',
   file: require('./UI_elements/IconLibrary/StoryTime.png'),
+  state: false,
 })
 .concat({
   id: 10,
   name: 'TherapyDog',
   file: require('./UI_elements/IconLibrary/TherapyDog.png'),
+  state: false,
 })
 .concat({
   id: 11,
   name: 'Yoga',
   file: require('./UI_elements/IconLibrary/Yoga.png'),
+  state: false,
 })
 
 class IconLib extends Component{
@@ -74,7 +86,7 @@ class IconLib extends Component{
 
         <FlatGrid
         itemDimension={ 100 }
-        items={iconData}
+        items={IconData}
         // staticDimension={300}
         // fixed
         // spacing={20}
