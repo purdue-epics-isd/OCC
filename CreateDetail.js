@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StudentStack, StudentData } from './StudentDir.js';
 import { createBottomTabNavigator, StackNavigator } from 'react-navigation';
-import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView, Alert } from 'react-native';
 import { IconStack, IconData } from './IconLib.js';
 import { FlatGrid } from 'react-native-super-grid';
 
@@ -57,6 +57,21 @@ class IndividualScreen extends Component {
     sIndex = index;
     this.props.navigation.push('editdetail');
   }
+
+  asktosendEmail(){
+    Alert.alert(
+      'Send email to all students',
+      '',
+      [
+        {text: 'NO', onPress: () => {}, style: 'cancel'},
+        {text: 'YES', onPress: () => {this.sendEmail()}},
+      ]
+    );
+  }
+
+  sendEmail(){
+    alert("okay");
+  }
   
   render(){
     return(
@@ -78,6 +93,9 @@ class IndividualScreen extends Component {
           
         }
         </ScrollView>
+        <TouchableOpacity style={styles.sendButton} onPress = {() => this.asktosendEmail()}>
+          <Text style={styles.whiteText}>Send Details</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -88,7 +106,6 @@ class EditDetailScreen extends Component{
   constructor(){
     super();
     //Initializing stateIconData array inside of state
-    alert("constructor!");
     this.state = {
       stateIconData: Array()
     }
@@ -199,6 +216,20 @@ const styles = StyleSheet.create ({
     marginBottom: 5,
   },
 
+  sendButton:{
+    width: '80%',
+    height: '7%',
+    backgroundColor: '#FF8D2C',
+    borderRadius: 5,
+    resizeMode: 'contain',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: '10%',
+    marginRight: '10%',
+  },
+
   defaultIcon:{
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -220,7 +251,6 @@ const styles = StyleSheet.create ({
     backgroundColor: '#98FF98',
     borderRadius: 5,
   },
-
 
   iconBox:{
     flex: 1,
