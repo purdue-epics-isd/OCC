@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { StudentStack, StudentData } from './StudentDir.js';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, StackNavigator } from 'react-navigation';
 import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { IconStack, IconData } from './IconLib.js';
 import { FlatGrid } from 'react-native-super-grid';
 
 var localIconData = IconData;
+var localStudentData = StudentData;
+var sIndex; //Index value for "which student's detail are we editing?"
 
 class GroupScreen extends Component {
 
@@ -22,7 +24,7 @@ class GroupScreen extends Component {
   }
 
   changeState(item, index){
-    //Change state for stateIconDate & localIconData
+    //Change state for stateIconData & localIconData
     var newState = this.state;
     newState.stateIconData[index] = !item.state;
     this.setState(newState);
@@ -47,21 +49,28 @@ class GroupScreen extends Component {
     );
     
   }
-}
+}//End of Group Tab Screen
 
 class IndividualScreen extends Component {
+
+  onClick(index){
+    sIndex = index;
+    this.props.navigation.push('editdetail');
+  }
+  
   render(){
     return(
       <View style={styles.container}>
         <ScrollView>
         {
-          StudentData.map((item, index) => (
+          localStudentData.map((item, index) => (
             <View
               key = {index}
               style = {styles.StudentBox}>
               <Image source={require('./UI_elements/Log/ProfileImage.png')} style = {styles.ProfileIcon}/>
               <Text style = {{flex:2}}>{item.name}</Text>
-              <TouchableOpacity style={{flex:1}}>
+              <TouchableOpacity style={{flex:1}} 
+                onPress = {() => this.onClick(index)}>
                 <Image source={require('./UI_elements/Nav/RightArrow.png')} style = {styles.MenuIcon}/>
               </TouchableOpacity>
             </View>
@@ -72,22 +81,91 @@ class IndividualScreen extends Component {
       </View>
     );
   }
-}
+}// End of Individual tab screen
 
 class EditDetailScreen extends Component{
-  render(){
+
+  constructor(){
+    super();
+    //Initializing stateIconData array inside of state
+    alert("constructor!");
+    this.state = {
+      stateIconData: Array()
+    }
+    const that = this;
+    //If this student already have its own set of states, load that data
+    if(localStudentData[sIndex].states != null){ 
+      localStudentData[sIndex].states.forEach(function(value){
+        that.state.stateIconData.push((value) ? true : false );
+      })
+    }
+    else{
+      //If not, load data from localIconData cuz local has the group click values
+      localIconData.forEach(function(value){
+        that.state.stateIconData.push((value.state) ? true : false );
+      })
+    }
+  }
+
+  changeState(index){
+    //Change state for stateIconData
+    var newState = this.state;
+    newState.stateIconData[index] = !this.state.stateIconData[index];
+    this.setState(newState);
+  }
+
+  done(){
+    //Save your stateIconData's t/f values to localstudentdata state
+    localStudentData[sIndex].states = Array();
+    this.state.stateIconData.forEach(function(value){
+      localStudentData[sIndex].states.push((value) ? true : false);
+    })
+    this.props.navigation.pop();
+  }
+
+  render(){    
+
     return(
-      <View style={styles.container}>
-      
+      <View style={styles.centerContainer}>
+          <View style={styles.bigButton}>
+            <Text style={styles.whiteText}>{localStudentData[sIndex].name}</Text>
+          </View>
+          <ScrollView>
+          <FlatGrid
+          itemDimension={ 100 }
+          items={localIconData}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity style={styles.iconBox} onPress = { () => this.changeState(index) }>
+              <Image source={item.file} style = { (this.state.stateIconData[index]) ? (styles.selectedIcon) : (styles.defaultIcon) }/>
+              <Text>{item.name}</Text>
+            </TouchableOpacity>
+          )}
+          />
+          </ScrollView>
+          <TouchableOpacity style={styles.bigButton}
+            onPress = {() => this.done()}>
+            <Text style = {styles.whiteText}>Done</Text>
+          </TouchableOpacity>
       </View>
     );
   }
-}
+}// End of Edit detail screen
+
+const IndividualStack = StackNavigator({
+  IndividualStackHome:{
+    screen: IndividualScreen
+  },
+  editdetail:{
+    screen: EditDetailScreen
+  }
+},{
+  headerMode: 'none'
+});// Stack navigation between the individual tab and corresponding edit detail
 
 const CreateDetailStack = createBottomTabNavigator({
     Group: GroupScreen,
-    Individual: IndividualScreen
-});
+    Individual: IndividualStack
+});// Tab navigation between the group tab screen and the individual tab screen
 
 export default CreateDetailStack;
 
@@ -96,6 +174,29 @@ const styles = StyleSheet.create ({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
+  },
+
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  whiteText:{
+    fontSize: 20,
+    color: '#FFFFFF',
+  },
+
+  bigButton:{
+    width: '80%',
+    height: '7%',
+    backgroundColor: '#FF8D2C',
+    borderRadius: 5,
+    resizeMode: 'contain',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5,
+    marginBottom: 5,
   },
 
   defaultIcon:{
