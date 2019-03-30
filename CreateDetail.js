@@ -6,8 +6,8 @@ import { IconStack, IconData } from './IconLib.js';
 import { FlatGrid } from 'react-native-super-grid';
 import Mailer from 'react-native-mail';
 
-var localIconData = IconData;
-var localStudentData = StudentData;
+var localIconData;
+var localStudentData;
 var sIndex; //Index value for "which student's detail are we editing?"
 
 class GroupScreen extends Component {
@@ -15,7 +15,7 @@ class GroupScreen extends Component {
   constructor(){
     super();
     
-    //NEED TO FIGURE OUT WHY ICON DATA IS GETTING bad
+    //NEED TO FIGURE OUT WHY ICON DATA IS GETTING corrupt
     localIconData = IconData;
     localStudentData = StudentData;
 
@@ -59,9 +59,25 @@ class GroupScreen extends Component {
 
 class IndividualScreen extends Component {
 
+  constructor(){
+    super();
+
+    //Initializing stateIconData array inside of state
+    this.state = {
+      stateStudentData: Array(StudentData.length).fill(0),
+    }
+  }
+
   onClick(index){
     sIndex = index;
     this.props.navigation.push('editdetail');
+  }
+
+  dismiss(index){
+    var newState = this.state;
+    if(newState.stateStudentData[index] == 0) newState.stateStudentData[index] = 1;
+    else newState.stateStudentData[index] = 0;
+    this.setState(newState);
   }
 
   asktosendEmail(){
@@ -77,7 +93,11 @@ class IndividualScreen extends Component {
 
   sendEmail(){
     var allMails = "";
+    var that = this;
     localStudentData.forEach(function(entry, studentindex){
+      //Only consider the "Not dismissed students"
+      if(that.state.stateStudentData[studentindex]== 0 ){
+
       var activities = Array();
       activities.push("Name: "+entry.name+"\n");
       activities.push("Email: "+entry.email+"\n");
@@ -102,6 +122,8 @@ class IndividualScreen extends Component {
         activities.push("\nComment: No specific comment was made.\n");
       }
       allMails = allMails + activities.toLocaleString() + "\n\n";
+    }
+
     });
 
     //Pseudo-send mail here. 
@@ -147,12 +169,16 @@ class IndividualScreen extends Component {
           localStudentData.map((item, index) => (
             <View
               key = {index}
-              style = {styles.StudentBox}>
+              style = { (this.state.stateStudentData[index] == 0) ? styles.StudentBox : styles.StudentBoxRed}>
               <Image source={require('./UI_elements/Log/ProfileImage.png')} style = {styles.ProfileIcon}/>
               <Text style = {{flex:2}}>{item.name}</Text>
               <TouchableOpacity style={{flex:1}} 
                 onPress = {() => this.onClick(index)}>
                 <Image source={require('./UI_elements/Nav/RightArrow.png')} style = {styles.MenuIcon}/>
+              </TouchableOpacity>
+              <TouchableOpacity style={{flex:1}} 
+                onPress = {() => this.dismiss(index)}>
+                <Image source={require('./UI_elements/Nav/x.png')} style = {styles.MenuIcon}/>
               </TouchableOpacity>
             </View>
           ))
@@ -214,7 +240,6 @@ class EditDetailScreen extends Component{
   }
 
   render(){    
-
     return(
       <View style={styles.centerContainer}>
           <View style={styles.bigButton}>
@@ -363,6 +388,26 @@ const styles = StyleSheet.create ({
     flex: 1,
     flexDirection: 'row', 
     backgroundColor: '#d4d4d6',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderBottomColor: '#f7f8f9',
+    borderTopColor: '#f7f8f9',
+  },
+  StudentBoxGreen:{
+    flex: 1,
+    flexDirection: 'row', 
+    backgroundColor: '#98FF98',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderBottomColor: '#f7f8f9',
+    borderTopColor: '#f7f8f9',
+  },
+  StudentBoxRed:{
+    flex: 1,
+    flexDirection: 'row', 
+    backgroundColor: '#FF9898',
     alignItems: 'center',
     borderBottomWidth: 1,
     borderTopWidth: 1,
