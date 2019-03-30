@@ -9,24 +9,28 @@ export const StudentData = Array(0)
   name: 'Jeonghu Park',
   email: 'park955@purdue.edu',
   states: null,
+  msg: null,
 })
 .concat({
   id: 1,
   name: 'Jacqueline Leal',
   email: 'leal6@purdue.edu',
   states: null,
+  msg: null,
 })
 .concat({
   id: 2,
   name: 'Broderick Schipp',
   email: 'schipp@purdue.edu',
   states: null,
+  msg: null,
 })
 .concat({
   id: 3,
   name: 'Madi Rogers',
   email: 'roger188@purdue.edu',
   states: null,
+  msg: null,
 })
 
 class StudentDir extends Component{

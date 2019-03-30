@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { StudentStack, StudentData } from './StudentDir.js';
 import { createBottomTabNavigator, StackNavigator } from 'react-navigation';
-import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView, Alert } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView, Alert,TextInput } from 'react-native';
 import { IconStack, IconData } from './IconLib.js';
 import { FlatGrid } from 'react-native-super-grid';
+import Mailer from 'react-native-mail';
 
 var localIconData = IconData;
 var localStudentData = StudentData;
@@ -13,14 +14,19 @@ class GroupScreen extends Component {
 
   constructor(){
     super();
+    
+    //NEED TO FIGURE OUT WHY ICON DATA IS GETTING bad
+    localIconData = IconData;
+    localStudentData = StudentData;
+
     //Initializing stateIconData array inside of state
     this.state = {
-      stateIconData: Array(0)
+      stateIconData: Array(0),
     }
     const that = this;
     localIconData.forEach(function(value){
       that.state.stateIconData.push((value.state) ? true : false );
-    })
+    });
   }
 
   changeState(item, index){
@@ -60,17 +66,77 @@ class IndividualScreen extends Component {
 
   asktosendEmail(){
     Alert.alert(
-      'Send email to all students',
+      'Send email to all students?',
       '',
       [
-        {text: 'NO', onPress: () => {}, style: 'cancel'},
-        {text: 'YES', onPress: () => {this.sendEmail()}},
+        {text: 'Cancel', onPress: () => {}, style: 'cancel'},
+        {text: 'Confirm', onPress: () => {this.sendEmail()}},
       ]
     );
   }
 
   sendEmail(){
-    alert("okay");
+    var allMails = "";
+    localStudentData.forEach(function(entry, studentindex){
+      var activities = Array();
+      activities.push("Name: "+entry.name+"\n");
+      activities.push("Email: "+entry.email+"\n");
+
+      //If it has customized icon selection, read from that
+      if(entry.states != null){
+        entry.states.forEach(function(state, index){
+          if(state == true) activities.push(localIconData[index].name);
+        });
+      }
+      //If not, read it from the group selection page => localIconData
+      else{
+        localIconData.forEach(function(localicon){
+          if(localicon.state == true) activities.push(localicon.name);
+        });
+      }
+      //If the student had as comment
+      if(entry.msg != null){
+        activities.push("\nComment: "+entry.msg+"\n");
+      }
+      else{
+        activities.push("\nComment: No specific comment was made.\n");
+      }
+      allMails = allMails + activities.toLocaleString() + "\n\n";
+    });
+
+    //Pseudo-send mail here. 
+    Alert.alert(
+      "Send Email",
+      allMails,
+      [
+        {text: 'Done', onPress: () => {this.props.navigation.pop()}},
+      ]
+    );
+    /*
+    Mailer.mail({
+      subject: 'Email Testing',
+      recipients: ['park955@purdue.edu'],
+      ccRecipients: [''],
+      bccRecipients: [''],
+      body: '<b>This is email testing phase</b>',
+      isHTML: true,
+      attachment: {
+        path: '',  // The absolute path of the file from which to read data.
+        type: '',   // Mime Type: jpg, png, doc, ppt, html, pdf, csv
+        name: '',   // Optional: Custom filename for attachment
+      }
+    }, (error, event) => {
+      Alert.alert(
+        error,
+        event,
+        [
+          {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
+          {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
+        ],
+        { cancelable: true }
+      )
+    });
+    */
   }
   
   render(){
@@ -107,7 +173,8 @@ class EditDetailScreen extends Component{
     super();
     //Initializing stateIconData array inside of state
     this.state = {
-      stateIconData: Array()
+      stateIconData: Array(),
+      text: 'Type here...',
     }
     const that = this;
     //If this student already have its own set of states, load that data
@@ -121,6 +188,11 @@ class EditDetailScreen extends Component{
       localIconData.forEach(function(value){
         that.state.stateIconData.push((value.state) ? true : false );
       })
+    }
+
+    //Load empty/inputted msg into stateMsgData
+    if(localStudentData[sIndex].msg != null){
+      this.state.text = localStudentData[sIndex].msg;
     }
   }
 
@@ -137,6 +209,7 @@ class EditDetailScreen extends Component{
     this.state.stateIconData.forEach(function(value){
       localStudentData[sIndex].states.push((value) ? true : false);
     })
+    localStudentData[sIndex].msg = this.state.text;
     this.props.navigation.pop();
   }
 
@@ -157,6 +230,12 @@ class EditDetailScreen extends Component{
               <Text>{item.name}</Text>
             </TouchableOpacity>
           )}
+          />
+          <Text style={styles.commentText}>Comments</Text>
+          <TextInput
+            style={styles.commentTextBox}
+            onChangeText={(text) => this.setState({text})}
+            value={this.state.text}
           />
           </ScrollView>
           <TouchableOpacity style={styles.bigButton}
@@ -203,6 +282,10 @@ const styles = StyleSheet.create ({
     fontSize: 20,
     color: '#FFFFFF',
   },
+  blackText:{
+    fontSize: 12,
+    color: '#000000',
+  },
 
   bigButton:{
     width: '80%',
@@ -226,6 +309,16 @@ const styles = StyleSheet.create ({
     justifyContent: 'center',
     marginTop: 5,
     marginBottom: 5,
+    marginLeft: '10%',
+    marginRight: '10%',
+  },
+
+  commentText:{
+    marginLeft: '10%',
+    marginRight: '10%',
+  },
+
+  commentTextBox:{
     marginLeft: '10%',
     marginRight: '10%',
   },
