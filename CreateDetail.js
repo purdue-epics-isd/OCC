@@ -200,7 +200,7 @@ class EditDetailScreen extends Component{
     //Initializing stateIconData array inside of state
     this.state = {
       stateIconData: Array(),
-      text: 'Type here...',
+      text: '',
     }
     const that = this;
     //If this student already have its own set of states, load that data
@@ -259,6 +259,7 @@ class EditDetailScreen extends Component{
           <Text style={styles.commentText}>Comments</Text>
           <TextInput
             style={styles.commentTextBox}
+            placeholder = {"Type here..."}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}
           />
