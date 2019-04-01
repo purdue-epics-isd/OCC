@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView, TextInput } from 'react-native'
 
 class EditIcon extends Component{
 
@@ -10,8 +10,11 @@ class EditIcon extends Component{
       <View style = {styles.iconBox}>
         <Image source={icon.file} style = {styles.icon}/>
         <View style = {styles.nameline}>
-          
-          <Text style ={styles.name}>{icon.name}</Text>
+          <TextInput
+          style = {styles.name}
+          placeholder = {icon.name}
+         // onChangeText =
+          />
           <Image source={require('./UI_elements/Nav/Edit.png')} style = {styles.small} />
 
         </View>
