@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
+import { TextInput, Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 
 class EditProfile extends Component{
@@ -13,9 +13,14 @@ class EditProfile extends Component{
       <View style = {styles.PageView}>
         <ScrollView>
           <Image source={require('./UI_elements/Log/ProfileImage.png')} style = {styles.icon}/>
-          <Text style = {styles.text}>{student.name}</Text>
+          <TextInput
+          style = {styles.text}
+          placeholder = {student.name}/>
           <View style = {styles.box}>
-          <Text style = {styles.text}>{student.email}</Text>
+          <TextInput 
+          style = {styles.text}
+          placeholder = {student.email}
+          />
           <Image source={require('./UI_elements/Log/Email.png')} style = {styles.email}/>
           </View>
           
@@ -61,7 +66,7 @@ const styles = StyleSheet.create ({
   PageView:{
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     backgroundColor: '#f7f8f9',
     flexDirection: 'column',
   },
