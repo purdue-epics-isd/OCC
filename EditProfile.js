@@ -1,3 +1,8 @@
+/*
+  ******************************************************************************
+   This file has been deprecated and moved to the subclass in StudentDir.js file
+  ******************************************************************************
+
 import React, { Component } from 'react'
 import { TextInput, Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
 import { StackNavigator } from 'react-navigation'
@@ -12,7 +17,7 @@ class EditProfile extends Component{
     return(
       <View style = {styles.PageView}>
         <ScrollView>
-          <Image source={require('./UI_elements/Log/ProfileImage.png')} style = {styles.icon}/>
+          <Image source={require('./UI_elements/Log/ProfileImage.png')} style = {styles.icon_editprofile}/>
           <TextInput
           style = {styles.text}
           placeholder = {student.name}/>
@@ -32,7 +37,7 @@ class EditProfile extends Component{
 
 export default EditProfile;
 const styles = StyleSheet.create ({
-  icon:{
+  icon_editprofile:{
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -71,3 +76,4 @@ const styles = StyleSheet.create ({
     flexDirection: 'column',
   },
 })
+*/

@@ -102,16 +102,35 @@ class IndividualScreen extends Component {
       activities.push("Name: "+entry.name+"\n");
       activities.push("Email: "+entry.email+"\n");
 
+      var attachments = Array();
+
       //If it has customized icon selection, read from that
       if(entry.states != null){
         entry.states.forEach(function(state, index){
-          if(state == true) activities.push(localIconData[index].name);
+          if(state == true){
+            activities.push(localIconData[index].name);
+
+            attachments.push({
+              path: '', //Absolute Path?
+              type: 'png',
+              name: localIconData[index].name,
+            });
+
+          } 
         });
       }
       //If not, read it from the group selection page => localIconData
       else{
         localIconData.forEach(function(localicon){
-          if(localicon.state == true) activities.push(localicon.name);
+          if(localicon.state == true){
+            activities.push(localicon.name);
+
+            attachments.push({
+              path: '', //Absolute Path?
+              type: 'png',
+              name: localicon.name,
+            });
+          } 
         });
       }
       //If the student had as comment
@@ -121,7 +140,30 @@ class IndividualScreen extends Component {
       else{
         activities.push("\nComment: No specific comment was made.\n");
       }
+      /*
       allMails = allMails + activities.toLocaleString() + "\n\n";
+
+      Mailer.mail({
+        subject: 'Daily Detail for '+entry.name,
+        recipients: [entry.email],
+        ccRecipients: [''],
+        bccRecipients: [''],
+        body: '<b>'+entry.msg+'</b>',
+        isHTML: true,
+        attachment: attachments
+      }, (error, event) => {
+        Alert.alert(
+          error,
+          event,
+          [
+            {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
+            {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
+          ],
+          { cancelable: true }
+        )
+      });
+      */
+
     }
 
     });
@@ -266,7 +308,7 @@ class EditDetailScreen extends Component{
           </ScrollView>
           <TouchableOpacity style={styles.bigButton}
             onPress = {() => this.done()}>
-            <Text style = {styles.whiteText}>Done</Text>
+            <Text style = {styles.whiteText}>Save</Text>
           </TouchableOpacity>
       </View>
     );
